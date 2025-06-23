@@ -52,7 +52,7 @@ public class BoardService {
         Board board = boardRepository.findById(id)
                 .orElseThrow(() -> new BoardNotFoundException(ErrorCode.CANNOT_FIND_BOARD));
 
-        if (articleRepository.existsByWriterId(id)) {
+        if (articleRepository.existsByBoard_Id(id)) {
             throw new BoardDeletionNotAllowedException(ErrorCode.BOARD_HAS_ARTICLES);
         }
     }

@@ -2,6 +2,7 @@ package com.example.bcsd.service;
 
 import com.example.bcsd.domain.Article;
 import com.example.bcsd.domain.Board;
+import com.example.bcsd.domain.Member;
 import com.example.bcsd.dto.ArticleListResponseDto;
 import com.example.bcsd.dto.ArticleRequestDto;
 import com.example.bcsd.dto.ArticleResponseDto;
@@ -31,7 +32,7 @@ public class ArticleService {
 
     public List<ArticleListResponseDto> getAllArticles() {
         Map<Long, List<Article>> grouped = articleRepository.findAll().stream()
-                .collect(Collectors.groupingBy(Article::getBoardId));
+                .collect(Collectors.groupingBy(a -> a.getBoard().getId()));
 
         return grouped.entrySet().stream()
                 .map(entry -> {
@@ -59,19 +60,17 @@ public class ArticleService {
                 .collect(Collectors.toList());
     }
 
-
     @Transactional
     public ArticleResponseDto createArticle(ArticleRequestDto dto) {
-        if (!memberRepository.findById(dto.getWriterId()).isPresent()) {
-            throw new MemberNotFoundException(ErrorCode.CANNOT_FIND_MEMBER);
-        }
-        if (!boardRepository.findById(dto.getBoardId()).isPresent()) {
-            throw new BoardNotFoundException(ErrorCode.CANNOT_FIND_BOARD);
-        }
+        Member writer = memberRepository.findById(dto.getWriterId())
+                .orElseThrow(() -> new MemberNotFoundException(ErrorCode.CANNOT_FIND_MEMBER));
+
+        Board board = boardRepository.findById(dto.getBoardId())
+                .orElseThrow(() -> new BoardNotFoundException(ErrorCode.CANNOT_FIND_BOARD));
 
         Article article = new Article(
-                dto.getWriterId(),
-                dto.getBoardId(),
+                writer,
+                board,
                 dto.getTitle(),
                 dto.getContent(),
                 LocalDateTime.now(),
@@ -87,31 +86,27 @@ public class ArticleService {
         Article article = articleRepository.findById(id)
                 .orElseThrow(() -> new ArticleNotFoundException(ErrorCode.CANNOT_FIND_ARTICLE));
 
-        boolean writerExists = memberRepository.findById(dto.getWriterId()).isPresent();
-        if (!writerExists) {
-            throw new InvalidArticleReferenceException(ErrorCode.MEMBER_DOESNT_EXISTS);
-        }
+        Member writer = memberRepository.findById(dto.getWriterId())
+                .orElseThrow(() -> new InvalidArticleReferenceException(ErrorCode.MEMBER_DOESNT_EXISTS));
 
-        boolean boardExists = boardRepository.findById(dto.getBoardId()).isPresent();
-        if (!boardExists) {
-            throw new InvalidArticleReferenceException(ErrorCode.BOARD_DOESNT_EXISTS);
-        }
+        Board board = boardRepository.findById(dto.getBoardId())
+                .orElseThrow(() -> new InvalidArticleReferenceException(ErrorCode.BOARD_DOESNT_EXISTS));
 
         article.setTitle(dto.getTitle());
         article.setContent(dto.getContent());
         article.setModifiedDate(LocalDateTime.now());
-        article.setWriterId(dto.getWriterId());
-        article.setBoardId(dto.getBoardId());
+        article.setWriter(writer);
+        article.setBoard(board);
 
-        articleRepository.update(article);
-
+        articleRepository.save(article);
         return new ArticleResponseDto(article);
     }
 
     @Transactional
     public void deleteArticle(Long id) {
-        if (!articleRepository.deleteById(id)) {
-            throw new NullPointerException("");
+        if (!articleRepository.existsById(id)) {
+            throw new ArticleNotFoundException(ErrorCode.CANNOT_FIND_ARTICLE);
         }
+        articleRepository.deleteById(id);
     }
 }

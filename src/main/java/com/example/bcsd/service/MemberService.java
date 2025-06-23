@@ -31,7 +31,8 @@ public class MemberService {
     }
 
     public MemberResponseDto getMemberById(Long id) {
-        return memberRepository.findById(id).map(MemberResponseDto::new)
+        return memberRepository.findById(id)
+                .map(MemberResponseDto::new)
                 .orElseThrow(() -> new MemberNotFoundException(ErrorCode.CANNOT_FIND_MEMBER));
     }
 
@@ -39,7 +40,6 @@ public class MemberService {
     public MemberResponseDto createMember(MemberRequestDto dto) {
         Member member = new Member(dto.getName(), dto.getEmail(), dto.getPassword());
         memberRepository.save(member);
-
         return new MemberResponseDto(member);
     }
 
@@ -49,7 +49,6 @@ public class MemberService {
                 .orElseThrow(() -> new MemberNotFoundException(ErrorCode.CANNOT_FIND_MEMBER));
 
         Optional<Member> memberEmailCheck = memberRepository.findByEmail(dto.getEmail());
-
         if (memberEmailCheck.isPresent() && !memberEmailCheck.get().getId().equals(id)) {
             throw new EmailAlreadyExistsException(ErrorCode.EMAIL_ALREADY_EXISTS);
         }
@@ -58,7 +57,7 @@ public class MemberService {
         member.setName(dto.getName());
         member.setPassword(dto.getPassword());
 
-        memberRepository.update(member, id);
+        memberRepository.save(member);
 
         return new MemberResponseDto(member);
     }
@@ -68,8 +67,10 @@ public class MemberService {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new MemberNotFoundException(ErrorCode.CANNOT_FIND_MEMBER));
 
-        if (articleRepository.existsByWriterId(id)) {
+        if (articleRepository.existsByWriter_Id(id)) {
             throw new MemberDeletionNotAllowedException(ErrorCode.MEMBER_HAS_ARTICLES);
         }
+
+        memberRepository.deleteById(id);
     }
 }

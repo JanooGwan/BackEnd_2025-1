@@ -15,8 +15,8 @@ public class ArticleResponseDto {
 
     public ArticleResponseDto(Article article) {
         this.id = article.getId();
-        this.writerId = article.getWriterId();
-        this.boardId = article.getBoardId();
+        this.writerId = article.getWriter().getId();
+        this.boardId = article.getBoard().getId();
         this.title = article.getTitle();
         this.content = article.getContent();
         this.createdDate = article.getCreatedDate();
