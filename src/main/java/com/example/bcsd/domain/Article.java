@@ -11,11 +11,13 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "writer_id", nullable = false)
-    private Long writerId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "writer_id", nullable = false)
+    private Member writer;
 
-    @Column(name = "board_id", nullable = false)
-    private Long boardId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "board_id", nullable = false)
+    private Board board;
 
     @Column(nullable = false)
     private String title;
@@ -31,10 +33,10 @@ public class Article {
 
     protected Article() {}
 
-    public Article(Long writerId, Long boardId, String title, String content,
+    public Article(Member writer, Board board, String title, String content,
                    LocalDateTime createdDate, LocalDateTime modifiedDate) {
-        this.writerId = writerId;
-        this.boardId = boardId;
+        this.writer = writer;
+        this.board = board;
         this.title = title;
         this.content = content;
         this.createdDate = createdDate;
@@ -42,12 +44,12 @@ public class Article {
     }
 
     public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public Long getWriterId() { return writerId; }
-    public void setWriterId(Long writerId) { this.writerId = writerId; }
 
-    public Long getBoardId() { return boardId; }
-    public void setBoardId(Long boardId) { this.boardId = boardId; }
+    public Member getWriter() { return writer; }
+    public void setWriter(Member writer) { this.writer = writer; }
+
+    public Board getBoard() { return board; }
+    public void setBoard(Board board) { this.board = board; }
 
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
