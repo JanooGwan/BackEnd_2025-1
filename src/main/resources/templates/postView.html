@@ -2,28 +2,35 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>게시판</title>
+    <title>게시글 목록</title>
     <style>
-        body { font-family: sans-serif; padding: 20px; }
-        h1 { color: #333; }
-        .board { margin-bottom: 30px; }
-        .article { border-bottom: 1px solid #ccc; margin-bottom: 10px; padding-bottom: 10px; }
-        .title { font-weight: bold; font-size: 18px; }
-        .meta { color: #777; font-size: 13px; }
-        .content { margin-top: 5px; }
+        body { font-family: Arial, sans-serif; background: #f5f5f5; }
+        .header { background: white; padding: 10px; text-align: right; }
+        .content { padding: 20px; }
+        .logout-btn {
+            background: #d9534f;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .logout-btn:hover { background: #c9302c; }
+        .article { background: white; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
     </style>
 </head>
 <body>
-<h1>게시판</h1>
-<div th:each="group : ${articles}" class="board">
-    <h2 th:text="${group.boardName}"></h2>
-    <div th:each="article : ${group.articleResponseDtos}" class="article">
-        <div class="title" th:text="${article.title}"></div>
-        <div class="meta">
-            작성자 ID: <span th:text="${article.writerId}"></span> |
-            게시일: <span th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
-        </div>
-        <div class="content" th:text="${article.content}"></div>
+<div class="header">
+    <span th:text="${name} + '님 환영합니다!'"></span>
+    <form th:action="@{/logout}" method="post" style="display:inline;">
+        <button type="submit" class="logout-btn">로그아웃</button>
+    </form>
+</div>
+<div th:each="group : ${articles}">
+    <h2 th:text="${group.boardName}">게시판 이름</h2>
+    <div th:each="article : ${group.articles}">
+        <h3 th:text="${article.title}">제목</h3>
+        <p th:text="${article.content}">내용</p>
     </div>
 </div>
 </body>

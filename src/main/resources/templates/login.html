@@ -17,12 +17,12 @@
 <div class="container">
     <h2>로그인</h2>
     <form th:action="@{/login}" method="post">
-        <input type="text" name="username" placeholder="아이디" required>
+        <input type="text" name="username" placeholder="이메일" required>
         <input type="password" name="password" placeholder="비밀번호" required>
         <button type="submit">로그인</button>
     </form>
     <div class="register-link">
-        <a th:href="@{/members/register}">회원가입</a>
+        <a th:href="@{/register}">회원가입</a>
     </div>
     <div class="error" th:if="${param.error}">
         아이디 또는 비밀번호가 올바르지 않습니다.

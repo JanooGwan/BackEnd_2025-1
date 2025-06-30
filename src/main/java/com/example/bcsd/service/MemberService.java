@@ -46,7 +46,6 @@ public class MemberService {
     }
 
 
-
     @Transactional
     public MemberResponseDto updateMember(MemberUpdateRequestDto dto, Long id, PasswordEncoder passwordEncoder) {
         Member member = memberRepository.findById(id)

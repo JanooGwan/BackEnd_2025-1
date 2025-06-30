@@ -6,11 +6,12 @@ import com.example.bcsd.service.MemberService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/members")
 public class MemberController {
     private final MemberService memberService;
@@ -41,7 +42,7 @@ public class MemberController {
 
     @PostMapping("/register")
     public MemberRegisterResponseDto registerMember(
-            @RequestBody @Valid MemberRegisterRequestDto dto) {
+            @Valid MemberRegisterRequestDto dto) {
 
         Member saved = memberService.registerMember(dto, passwordEncoder);
         return MemberRegisterResponseDto.from(saved);
