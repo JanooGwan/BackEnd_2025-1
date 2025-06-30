@@ -24,11 +24,11 @@ public class MemberRegisterRequestDto {
     @NotBlank(message = "비밀번호를 입력해주세요.")
     private String password;
 
-    public Member toEntity(String password) {
+    public Member toEntity(String encodedPassword) {
         return Member.builder()
                 .name(this.name)
                 .email(this.email)
-                .password(password)
+                .password(encodedPassword)
                 .build();
     }
 }

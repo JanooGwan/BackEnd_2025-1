@@ -1,11 +1,11 @@
 package com.example.bcsd.controller;
 
 import com.example.bcsd.domain.Member;
-import com.example.bcsd.dto.MemberRequestDto;
-import com.example.bcsd.dto.MemberResponseDto;
-import com.example.bcsd.dto.MemberUpdateRequestDto;
+import com.example.bcsd.dto.*;
 import com.example.bcsd.service.MemberService;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,9 +14,11 @@ import java.util.List;
 @RequestMapping("/members")
 public class MemberController {
     private final MemberService memberService;
+    private final PasswordEncoder passwordEncoder;
 
-    public MemberController(MemberService memberService) {
+    public MemberController(MemberService memberService, PasswordEncoder passwordEncoder) {
         this.memberService = memberService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping
@@ -29,15 +31,32 @@ public class MemberController {
         return memberService.getMemberById(id);
     }
 
+    // 로그인 & 로그아웃 구현하기 전
+    /*
     @PostMapping
     public MemberResponseDto createMember(@RequestBody @Valid MemberRequestDto dto) {
         return memberService.createMember(dto);
     }
+     */
+
+    @PostMapping("/register")
+    public MemberRegisterResponseDto registerMember(
+            @RequestBody @Valid MemberRegisterRequestDto dto) {
+
+        Member saved = memberService.registerMember(dto, passwordEncoder);
+        return MemberRegisterResponseDto.from(saved);
+    }
+
+
 
     @PutMapping("/{id}")
-    public MemberResponseDto updateMember(@PathVariable Long id, @RequestBody MemberUpdateRequestDto dto) {
-        return memberService.updateMember(dto, id);
+    public MemberResponseDto updateMember(
+            @PathVariable Long id,
+            @RequestBody @Valid MemberUpdateRequestDto dto) {
+
+        return memberService.updateMember(dto, id, passwordEncoder);
     }
+
 
     @DeleteMapping("/{id}")
     public void deleteMember(@PathVariable Long id) {
