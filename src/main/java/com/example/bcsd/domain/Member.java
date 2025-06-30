@@ -1,11 +1,13 @@
 package com.example.bcsd.domain;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Builder
 @Table(name = "member")
 public class Member {
 
@@ -22,7 +24,7 @@ public class Member {
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Article> articles = new ArrayList<>();
 
     protected Member() {}
