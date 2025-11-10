@@ -5,6 +5,8 @@ import com.example.bcsd.controller.dto.ArticleCreateRequestDto;
 import com.example.bcsd.controller.dto.ArticleResponseDto;
 import com.example.bcsd.controller.dto.ArticleUpdateRequestDto;
 import com.example.bcsd.repository.ArticleRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
@@ -13,9 +15,10 @@ public class ArticleService {
     private final ArticleRepository articleRepository = new ArticleRepository();
 
 
-    public Optional<ArticleResponseDto> getArticleById(Long id) {
+    public ArticleResponseDto getArticleById(Long id) {
         return articleRepository.findById(id)
-                .map(ArticleResponseDto::from);
+                .map(ArticleResponseDto::from)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 ID의 게시글을 찾을 수 없습니다."));
     }
 
     public ArticleResponseDto createArticle(ArticleCreateRequestDto requestDto) {
