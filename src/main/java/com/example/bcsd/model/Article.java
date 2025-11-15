@@ -9,15 +9,15 @@ public class Article {
     private Long boardId;
     private String title;
     private String content;
-    private final LocalDateTime createdDate;
-    private LocalDateTime modifiedDate;
+    private final LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
 
 
     public Article(String title, String content) {
         this.title = title;
         this.content = content;
-        this.createdDate = LocalDateTime.now();
-        this.modifiedDate = null;
+        this.createdAt= LocalDateTime.now();
+        this.modifiedAt = null;
     }
 
     public Article(Long writerId, Long boardId, String title, String content) {
@@ -25,14 +25,14 @@ public class Article {
         this.boardId = boardId;
         this.title = title;
         this.content = content;
-        this.createdDate = LocalDateTime.now();
-        this.modifiedDate = null;
+        this.createdAt = LocalDateTime.now();
+        this.modifiedAt = null;
     }
 
     public void update(String title, String content) {
         this.title = title;
         this.content = content;
-        this.modifiedDate = LocalDateTime.now();
+        this.modifiedAt = LocalDateTime.now();
     }
 
     public Long getId() {
@@ -55,12 +55,12 @@ public class Article {
         return content;
     }
 
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public LocalDateTime getModifiedDate() {
-        return modifiedDate;
+    public LocalDateTime getModifiedAt() {
+        return modifiedAt;
     }
 
     public void setId(Long id) {

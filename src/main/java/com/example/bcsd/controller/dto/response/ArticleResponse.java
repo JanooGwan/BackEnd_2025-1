@@ -10,8 +10,8 @@ public record ArticleResponse(
         Long boardId,
         String title,
         String content,
-        LocalDateTime createdDate,
-        LocalDateTime modifiedDate
+        LocalDateTime createdAt,
+        LocalDateTime modifiedAt
 ) {
     public static ArticleResponse from(Article article) {
         return new ArticleResponse(
@@ -20,8 +20,8 @@ public record ArticleResponse(
                 article.getBoardId(),
                 article.getTitle(),
                 article.getContent(),
-                article.getCreatedDate(),
-                article.getModifiedDate()
+                article.getCreatedAt(),
+                article.getModifiedAt()
         );
     }
 }
