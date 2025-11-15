@@ -1,11 +1,10 @@
 package com.example.bcsd.repository;
 
+import com.example.bcsd.model.Article;
 import com.example.bcsd.model.Board;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
@@ -13,10 +12,11 @@ public class BoardRepository {
     private final AtomicLong key = new AtomicLong(0);
     private final Map<Long, Board> boards = new HashMap<>();
 
-    public Optional<Board> findById(Long id) {
-        Board board = boards.get(id);
+    public List<Board> findAll() {
+        List<Board> result = new ArrayList<>();
+        boards.forEach((id, board) -> result.add(board));
 
-        return Optional.ofNullable(board);
+        return result;
     }
 
     public Board save(Board board) {
