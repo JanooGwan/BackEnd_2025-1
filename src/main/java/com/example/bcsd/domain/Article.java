@@ -46,4 +46,8 @@ public class Article {
     public LocalDateTime getModifiedDate() {
         return modifiedDate;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

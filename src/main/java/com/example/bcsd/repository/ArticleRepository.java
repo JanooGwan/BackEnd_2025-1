@@ -1,47 +1,36 @@
 package com.example.bcsd.repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
+
 import com.example.bcsd.domain.Article;
 
 public class ArticleRepository {
 
-    List<Article> articles = new ArrayList<>();
+    private final AtomicLong key = new AtomicLong(0);
+    private final Map<Long, Article> articles = new HashMap<>();
 
     public Optional<Article> findById(Long id) {
-        return articles.stream()
-                .filter(article -> article.getId().equals(id))
-                .findFirst();
+        Article article = articles.get(id);
+
+        return Optional.ofNullable(article);
     }
 
     public Article save(Article article) {
-        articles.add(article);
+        article.setId(key.incrementAndGet());
+        articles.put(key.get(), article);
+
         return article;
     }
 
     public Article update(Long id, Article article) {
-        Optional<Article> existingArticle = findById(id);
+        articles.put(id, article);
 
-        if (existingArticle.isPresent()) {
-            articles.remove(existingArticle.get());
-            articles.add(article);
-            return article;
-        }
-
-        return null;
+        return article;
     }
 
     public Article deleteById(Long id) {
-        Optional<Article> existingArticle = findById(id);
-
-        if (existingArticle.isPresent()) {
-            Article article = existingArticle.get();
-            articles.remove(article);
-            return article;
-        }
-
-        return null;
+        articles.remove(id);
     }
 
 }
