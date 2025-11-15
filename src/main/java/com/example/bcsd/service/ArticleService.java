@@ -6,11 +6,17 @@ import com.example.bcsd.controller.dto.response.ArticleResponse;
 import com.example.bcsd.controller.dto.request.ArticleUpdateRequest;
 import com.example.bcsd.repository.ArticleRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+@Service
 public class ArticleService {
 
-    private final ArticleRepository articleRepository = new ArticleRepository();
+    private final ArticleRepository articleRepository;
+
+    public ArticleService(ArticleRepository articleRepository) {
+        this.articleRepository = articleRepository;
+    }
 
 
     public ArticleResponse getArticleById(Long id) {

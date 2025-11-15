@@ -1,12 +1,14 @@
 package com.example.bcsd.repository;
 
 import com.example.bcsd.model.Board;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
+@Repository
 public class BoardRepository {
     private final AtomicLong key = new AtomicLong(0);
     private final Map<Long, Board> boards = new HashMap<>();

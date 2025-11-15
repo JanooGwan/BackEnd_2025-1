@@ -11,7 +11,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/articles")
 public class ArticleController {
 
-    private final ArticleService articleService = new ArticleService();
+    private final ArticleService articleService;
+
+    public ArticleController(ArticleService articleService) {
+        this.articleService = articleService;
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<ArticleResponse> getArticle(@PathVariable("id") Long id) {

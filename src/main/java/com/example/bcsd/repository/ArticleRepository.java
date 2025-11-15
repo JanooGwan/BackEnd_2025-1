@@ -4,7 +4,9 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.example.bcsd.model.Article;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class ArticleRepository {
 
     private final AtomicLong key = new AtomicLong(0);
