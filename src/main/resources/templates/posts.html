@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 목록</title>
+
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+        h2 {
+            margin-top: 30px;
+            border-left: 5px solid #4CAF50;
+            padding-left: 10px;
+        }
+        .article {
+            margin: 8px 0;
+            padding: 6px 10px;
+            background: #f8f8f8;
+            border-radius: 5px;
+        }
+        .article-title {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .meta {
+            color: gray;
+            font-size: 14px;
+        }
+        hr {
+            margin: 30px 0;
+        }
+    </style>
+</head>
+<body>
+<div th:if="${boards != null}">
+    <h1>전체 게시판</h1>
+
+    <div th:each="board : ${boards}">
+        <h2 th:text="${board.boardName}"></h2>
+
+        <div th:if="${#lists.isEmpty(board.articles)}">
+            <p>등록된 게시글이 없습니다.</p>
+        </div>
+
+        <div th:each="article : ${board.articles}" class="article">
+            <div class="article-title" th:text="${article.title}"></div>
+
+            <div class="meta">
+                작성자:
+                <span th:text="${article.writerName}"></span>
+                &nbsp; | &nbsp;
+                작성일:
+                <span th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
+            </div>
+        </div>
+
+        <hr/>
+    </div>
+</div>
+<div th:if="${articles != null}">
+    <h1 th:text="${boardName}"></h1>
+
+    <div th:if="${#lists.isEmpty(articles)}">
+        <p>등록된 게시글이 없습니다.</p>
+    </div>
+
+    <div th:each="article : ${articles}" class="article">
+        <div class="article-title" th:text="${article.title}"></div>
+
+        <div class="meta">
+            작성자:
+            <span th:text="${article.writerName}"></span>
+            &nbsp; | &nbsp;
+            작성일:
+            <span th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
