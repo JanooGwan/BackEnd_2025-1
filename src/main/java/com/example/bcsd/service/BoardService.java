@@ -2,7 +2,7 @@ package com.example.bcsd.service;
 
 import com.example.bcsd.controller.dto.request.BoardCreateRequest;
 import com.example.bcsd.controller.dto.request.BoardUpdateRequest;
-import com.example.bcsd.controller.dto.response.ArticleResponse;
+import com.example.bcsd.controller.dto.response.ArticlesInBoardViewResponse;
 import com.example.bcsd.controller.dto.response.BoardResponse;
 import com.example.bcsd.model.Board;
 import com.example.bcsd.repository.BoardRepository;
@@ -32,6 +32,20 @@ public class BoardService {
                 .map(BoardResponse::from)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "ID에 해당하는 게시판이 존재하지 않습니다."));
     }
+
+    public List<ArticlesInBoardViewResponse> getBoardsWithArticles() {
+        List<Board> boards = boardRepository.findAll();
+
+        return boards.stream()
+                .map(board -> {
+
+                    var articles = articleService.getArticlesByBoardWithWriter(board.getId());
+
+                    return ArticlesInBoardViewResponse.of(board.getId(), board.getName(), articles);
+                })
+                .toList();
+    }
+
 
     public BoardResponse createBoard(BoardCreateRequest requestDto) {
         Board board = boardRepository.save(requestDto.toEntity());

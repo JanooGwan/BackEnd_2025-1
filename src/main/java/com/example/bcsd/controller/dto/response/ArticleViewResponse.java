@@ -12,7 +12,7 @@ public record ArticleViewResponse(
         LocalDateTime createdAt,
         LocalDateTime modifiedAt
 ) {
-    public static ArticleViewResponse from(Article article, String name) {
+    public static ArticleViewResponse of(Article article, String name) {
         return new ArticleViewResponse(
                 article.getId(),
                 article.getTitle(),
