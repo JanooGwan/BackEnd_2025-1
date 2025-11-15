@@ -2,10 +2,13 @@ package com.example.bcsd.controller;
 
 import com.example.bcsd.controller.dto.request.BoardCreateRequest;
 import com.example.bcsd.controller.dto.request.BoardUpdateRequest;
+import com.example.bcsd.controller.dto.response.ArticleResponse;
 import com.example.bcsd.controller.dto.response.BoardResponse;
 import com.example.bcsd.service.BoardService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/boards")
@@ -15,6 +18,11 @@ public class BoardController {
 
     public BoardController(BoardService boardService) {
         this.boardService = boardService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<BoardResponse>> getAllBoards() {
+        return ResponseEntity.ok(boardService.getAllBoards());
     }
 
     @GetMapping("/{id}")
