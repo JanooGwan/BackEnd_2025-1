@@ -2,12 +2,15 @@ package com.example.bcsd.service;
 
 import com.example.bcsd.controller.dto.request.MemberCreateRequest;
 import com.example.bcsd.controller.dto.request.MemberUpdateRequest;
+import com.example.bcsd.controller.dto.response.BoardResponse;
 import com.example.bcsd.controller.dto.response.MemberResponse;
 import com.example.bcsd.model.Member;
 import com.example.bcsd.repository.MemberRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 @Service
 public class MemberService {
@@ -17,6 +20,12 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
+    public List<MemberResponse> getAllMembers() {
+        return memberRepository.findAll()
+                .stream()
+                .map(MemberResponse::from)
+                .toList();
+    }
 
     public MemberResponse getMemberById(Long id) {
         return memberRepository.findById(id)
