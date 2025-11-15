@@ -32,4 +32,10 @@ public class Member {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public void update(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
 }
