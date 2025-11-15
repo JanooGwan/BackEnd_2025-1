@@ -1,0 +1,36 @@
+package com.example.bcsd.repository;
+
+import com.example.bcsd.model.Member;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicLong;
+
+public class MemberRepository {
+    private final AtomicLong key = new AtomicLong(0);
+    private final Map<Long, Member> members = new HashMap<>();
+
+    public Optional<Member> findById(Long id) {
+        Member member = members.get(id);
+
+        return Optional.ofNullable(member);
+    }
+
+    public Member save(Member member) {
+        member.setId(key.incrementAndGet());
+        members.put(key.get(), member);
+
+        return member;
+    }
+
+    public Member update(Long id, Member member) {
+        members.put(id, member);
+
+        return member;
+    }
+
+    public void deleteById(Long id) {
+        members.remove(id);
+    }
+}

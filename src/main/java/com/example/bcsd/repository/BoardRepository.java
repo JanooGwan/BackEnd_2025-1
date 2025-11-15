@@ -1,6 +1,5 @@
 package com.example.bcsd.repository;
 
-import com.example.bcsd.model.Article;
 import com.example.bcsd.model.Board;
 
 import java.util.HashMap;
