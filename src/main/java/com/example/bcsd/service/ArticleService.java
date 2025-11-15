@@ -27,6 +27,13 @@ public class ArticleService {
                 .toList();
     }
 
+    public List<ArticleResponse> getArticlesByBoard(Long boardId) {
+        return articleRepository.findAllByBoardId(boardId).stream()
+                .map(ArticleResponse::from)
+                .toList();
+    }
+
+
     public ArticleResponse getArticleById(Long id) {
         return articleRepository.findById(id)
                 .map(ArticleResponse::from)
