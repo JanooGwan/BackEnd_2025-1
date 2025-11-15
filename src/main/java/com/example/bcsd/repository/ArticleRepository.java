@@ -19,6 +19,13 @@ public class ArticleRepository {
         return result;
     }
 
+    public List<Article> findAllByBoardId(Long boardId) {
+        return articles.values().stream()
+                .filter(article -> boardId.equals(article.getBoardId()))
+                .toList();
+    }
+
+
     public Optional<Article> findById(Long id) {
         Article article = articles.get(id);
 
