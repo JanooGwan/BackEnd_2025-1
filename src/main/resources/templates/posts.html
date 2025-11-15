@@ -52,7 +52,7 @@
                 <span th:text="${article.writerName}"></span>
                 &nbsp; | &nbsp;
                 작성일:
-                <span th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
+                <span th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
             </div>
         </div>
 
@@ -74,7 +74,7 @@
             <span th:text="${article.writerName}"></span>
             &nbsp; | &nbsp;
             작성일:
-            <span th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
+            <span th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
         </div>
     </div>
 </div>

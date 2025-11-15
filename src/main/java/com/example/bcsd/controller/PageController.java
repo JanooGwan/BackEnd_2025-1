@@ -1,17 +1,12 @@
 package com.example.bcsd.controller;
 
-import com.example.bcsd.controller.dto.response.ArticleResponse;
-import com.example.bcsd.controller.dto.response.BoardResponse;
 import com.example.bcsd.service.ArticleService;
 import com.example.bcsd.service.BoardService;
-import com.example.bcsd.service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 @Controller
 public class PageController {
