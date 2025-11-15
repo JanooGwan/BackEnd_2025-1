@@ -1,8 +1,6 @@
 package com.example.bcsd.repository;
 
-import com.example.bcsd.model.Article;
 import com.example.bcsd.model.Board;
-import com.example.bcsd.model.Member;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
