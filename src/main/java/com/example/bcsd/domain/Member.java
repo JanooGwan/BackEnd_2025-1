@@ -29,4 +29,8 @@ public class Member {
     public String getPassword() {
         return password;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

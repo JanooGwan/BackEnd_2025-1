@@ -7,8 +7,6 @@ import com.example.bcsd.service.ArticleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/articles")
 public class ArticleController {
