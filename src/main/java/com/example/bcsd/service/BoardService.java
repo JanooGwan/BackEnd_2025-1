@@ -2,17 +2,27 @@ package com.example.bcsd.service;
 
 import com.example.bcsd.controller.dto.request.BoardCreateRequest;
 import com.example.bcsd.controller.dto.request.BoardUpdateRequest;
+import com.example.bcsd.controller.dto.response.ArticleResponse;
 import com.example.bcsd.controller.dto.response.BoardResponse;
 import com.example.bcsd.model.Board;
 import com.example.bcsd.repository.BoardRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 public class BoardService {
     private final BoardRepository boardRepository;
 
     public BoardService(BoardRepository boardRepository) {
         this.boardRepository = boardRepository;
+    }
+
+    public List<BoardResponse> getAllBoards() {
+        return boardRepository.findAll()
+                .stream()
+                .map(BoardResponse::from)
+                .toList();
     }
 
     public BoardResponse getBoardById(Long id) {
