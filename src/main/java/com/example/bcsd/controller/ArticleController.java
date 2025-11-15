@@ -28,8 +28,8 @@ public class ArticleController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Optional<ArticleResponseDto>> updateArticle(@PathVariable Long id, @RequestBody ArticleUpdateRequestDto articleUpdateRequestDto) {
-        Optional<ArticleResponseDto> response = articleService.updateArticle(id, articleUpdateRequestDto);
+    public ResponseEntity<ArticleResponseDto> updateArticle(@PathVariable Long id, @RequestBody ArticleUpdateRequestDto articleUpdateRequestDto) {
+        ArticleResponseDto response = articleService.updateArticle(id, articleUpdateRequestDto);
         return ResponseEntity.ok(response);
     }
 

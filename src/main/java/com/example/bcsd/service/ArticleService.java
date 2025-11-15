@@ -18,7 +18,7 @@ public class ArticleService {
     public ArticleResponseDto getArticleById(Long id) {
         return articleRepository.findById(id)
                 .map(ArticleResponseDto::from)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 ID의 게시글을 찾을 수 없습니다."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "ID에 해당하는 게시글이 존재하지 않습니다."));
     }
 
     public ArticleResponseDto createArticle(ArticleCreateRequestDto requestDto) {
@@ -26,22 +26,23 @@ public class ArticleService {
         return ArticleResponseDto.from(article);
     }
 
-    public Optional<ArticleResponseDto> updateArticle(Long id, ArticleUpdateRequestDto requestDto) {
-        Optional<Article> existingArticle = articleRepository.findById(id);
+    public ArticleResponseDto updateArticle(Long id, ArticleUpdateRequestDto requestDto) {
+        Article article = articleRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResponseStatusException(HttpStatus.NOT_FOUND, "ID에 해당하는 게시글이 존재하지 않습니다.")
+                );
 
-        if (existingArticle.isPresent()) {
-            Article article = existingArticle.get();
-            article.update(requestDto.title(), requestDto.content());
-            return Optional.of(ArticleResponseDto.from(article));
-        }
+        article.update(requestDto.title(), requestDto.content());
+        Article updatedArticle = articleRepository.update(id, article);
 
-        return Optional.empty();
+        return ArticleResponseDto.from(updatedArticle);
     }
+
 
     public void deleteArticle(Long id) {
         Article article = articleRepository.findById(id)
                 .orElseThrow(() ->
-                        new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 ID에 해당하는 게시글이 존재하지 않습니다.")
+                        new ResponseStatusException(HttpStatus.NOT_FOUND, "ID에 해당하는 게시글이 존재하지 않습니다.")
                 );
 
         articleRepository.deleteById(id);
