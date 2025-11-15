@@ -2,10 +2,13 @@ package com.example.bcsd.controller;
 
 import com.example.bcsd.controller.dto.request.MemberCreateRequest;
 import com.example.bcsd.controller.dto.request.MemberUpdateRequest;
+import com.example.bcsd.controller.dto.response.BoardResponse;
 import com.example.bcsd.controller.dto.response.MemberResponse;
 import com.example.bcsd.service.MemberService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/members")
@@ -15,6 +18,11 @@ public class MemberController {
 
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<MemberResponse>> getAllMembers() {
+        return ResponseEntity.ok(memberService.getAllMembers());
     }
 
     @GetMapping("/{id}")
