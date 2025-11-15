@@ -2,7 +2,6 @@ package com.example.bcsd.service;
 
 import com.example.bcsd.controller.dto.request.MemberCreateRequest;
 import com.example.bcsd.controller.dto.request.MemberUpdateRequest;
-import com.example.bcsd.controller.dto.response.BoardResponse;
 import com.example.bcsd.controller.dto.response.MemberResponse;
 import com.example.bcsd.model.Member;
 import com.example.bcsd.repository.MemberRepository;
