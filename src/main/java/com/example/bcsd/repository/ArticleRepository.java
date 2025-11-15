@@ -29,8 +29,7 @@ public class ArticleRepository {
         return article;
     }
 
-    public Article deleteById(Long id) {
+    public void deleteById(Long id) {
         articles.remove(id);
     }
-
 }

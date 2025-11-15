@@ -38,9 +38,12 @@ public class ArticleService {
         return Optional.empty();
     }
 
-    public Optional<ArticleResponseDto> deleteArticle(Long id) {
-        Optional<Article> article = Optional.ofNullable(articleRepository.deleteById(id));
-        --Article.articleCount;
-        return article.map(ArticleResponseDto::from);
+    public void deleteArticle(Long id) {
+        Article article = articleRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 ID에 해당하는 게시글이 존재하지 않습니다.")
+                );
+
+        articleRepository.deleteById(id);
     }
 }
