@@ -53,18 +53,10 @@ public class ArticleService {
                                     new ResponseStatusException(HttpStatus.NOT_FOUND, "게시글을 작성한 회원이 존재하지 않습니다.")
                             );
 
-                    return new ArticleViewResponse(
-                            article.getId(),
-                            article.getTitle(),
-                            article.getContent(),
-                            writerName,
-                            article.getCreatedAt(),
-                            article.getModifiedAt()
-                    );
+                    return ArticleViewResponse.from(article, writerName);
                 })
                 .toList();
     }
-
 
     public ArticleResponse createArticle(ArticleCreateRequest requestDto) {
         Article article = articleRepository.save(requestDto.toEntity());
@@ -82,7 +74,6 @@ public class ArticleService {
 
         return ArticleResponse.from(updatedArticle);
     }
-
 
     public void deleteArticle(Long id) {
         Article article = articleRepository.findById(id)
