@@ -25,26 +25,25 @@ public class PageController {
     }
 
     @GetMapping("/introduce")
-    public String introduce(@RequestParam(name = "name", defaultValue = "이관우") String name, Model model) {
+    public String introduce(
+            @RequestParam(name = "name", defaultValue = "이관우")
+            String name,
+            Model model
+    ) {
         model.addAttribute("name", name);
         return "introduction";
     }
 
     @GetMapping("/posts")
     public String posts(Model model) {
-
-        model.addAttribute("boards", boardService.getBoardsWithArticles());
-
+        model.addAttribute("boards", articleService.getBoardsWithArticles());
         return "posts";
     }
 
-
     @GetMapping("/posts/{boardId}")
-    public String posts(@PathVariable Long boardId, Model model) {
-
+    public String postsByBoard(@PathVariable Long boardId, Model model) {
         model.addAttribute("boardName", boardService.getBoardById(boardId).name());
         model.addAttribute("articles", articleService.getArticlesByBoardWithWriter(boardId));
-
         return "posts";
     }
 }
