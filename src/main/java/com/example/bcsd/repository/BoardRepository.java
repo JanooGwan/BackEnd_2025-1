@@ -2,6 +2,7 @@ package com.example.bcsd.repository;
 
 import com.example.bcsd.model.Article;
 import com.example.bcsd.model.Board;
+import com.example.bcsd.model.Member;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -17,6 +18,12 @@ public class BoardRepository {
         boards.forEach((id, board) -> result.add(board));
 
         return result;
+    }
+
+    public Optional<Board> findById(Long id) {
+        Board board = boards.get(id);
+
+        return Optional.ofNullable(board);
     }
 
     public Board save(Board board) {
