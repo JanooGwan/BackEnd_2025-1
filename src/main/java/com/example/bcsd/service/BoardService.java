@@ -32,8 +32,8 @@ public class BoardService {
                         new ResponseStatusException(HttpStatus.NOT_FOUND, "ID에 해당하는 게시판이 존재하지 않습니다.")
                 );
 
-        board.update(requestDto.name(), requestDto.email(), requestDto.password());
-        Board updatedBoard = BoardRepository.update(id, board);
+        board.update(requestDto.name());
+        Board updatedBoard = boardRepository.update(id, board);
 
         return BoardResponse.from(updatedBoard);
     }

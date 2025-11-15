@@ -12,6 +12,13 @@ public class ArticleRepository {
     private final AtomicLong key = new AtomicLong(0);
     private final Map<Long, Article> articles = new HashMap<>();
 
+    public List<Article> findAll() {
+        List<Article> result = new ArrayList<>();
+        articles.forEach((id, article) -> result.add(article));
+
+        return result;
+    }
+
     public Optional<Article> findById(Long id) {
         Article article = articles.get(id);
 
