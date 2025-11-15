@@ -54,7 +54,12 @@
                 작성일:
                 <span th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
             </div>
+
+            <div class="content" th:text="${article.content}"
+                 style="margin-top: 5px; font-size: 15px; color: #444;">
+            </div>
         </div>
+
 
         <hr/>
     </div>
@@ -76,7 +81,12 @@
             작성일:
             <span th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
         </div>
+
+        <div class="content" th:text="${article.content}"
+             style="margin-top: 5px; font-size: 15px; color: #444;">
+        </div>
     </div>
+
 </div>
 </body>
 </html>
