@@ -4,8 +4,7 @@ public class Board {
     private Long id;
     private String name;
 
-    public Board(Long id, String name) {
-        this.id = id;
+    public Board(String name) {
         this.name = name;
     }
 
