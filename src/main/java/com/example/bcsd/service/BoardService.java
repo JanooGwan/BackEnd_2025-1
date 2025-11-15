@@ -2,7 +2,6 @@ package com.example.bcsd.service;
 
 import com.example.bcsd.controller.dto.request.BoardCreateRequest;
 import com.example.bcsd.controller.dto.request.BoardUpdateRequest;
-import com.example.bcsd.controller.dto.response.ArticlesInBoardViewResponse;
 import com.example.bcsd.controller.dto.response.BoardResponse;
 import com.example.bcsd.model.Board;
 import com.example.bcsd.repository.BoardRepository;
@@ -14,6 +13,7 @@ import java.util.List;
 
 @Service
 public class BoardService {
+
     private final BoardRepository boardRepository;
 
     public BoardService(BoardRepository boardRepository) {
@@ -30,22 +30,10 @@ public class BoardService {
     public BoardResponse getBoardById(Long id) {
         return boardRepository.findById(id)
                 .map(BoardResponse::from)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "ID에 해당하는 게시판이 존재하지 않습니다."));
+                .orElseThrow(() ->
+                        new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                "ID에 해당하는 게시판이 존재하지 않습니다."));
     }
-
-    public List<ArticlesInBoardViewResponse> getBoardsWithArticles() {
-        List<Board> boards = boardRepository.findAll();
-
-        return boards.stream()
-                .map(board -> {
-
-                    var articles = articleService.getArticlesByBoardWithWriter(board.getId());
-
-                    return ArticlesInBoardViewResponse.of(board.getId(), board.getName(), articles);
-                })
-                .toList();
-    }
-
 
     public BoardResponse createBoard(BoardCreateRequest requestDto) {
         Board board = boardRepository.save(requestDto.toEntity());
@@ -55,21 +43,19 @@ public class BoardService {
     public BoardResponse updateBoard(Long id, BoardUpdateRequest requestDto) {
         Board board = boardRepository.findById(id)
                 .orElseThrow(() ->
-                        new ResponseStatusException(HttpStatus.NOT_FOUND, "ID에 해당하는 게시판이 존재하지 않습니다.")
-                );
+                        new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                "ID에 해당하는 게시판이 존재하지 않습니다."));
 
         board.update(requestDto.name());
         Board updatedBoard = boardRepository.update(id, board);
-
         return BoardResponse.from(updatedBoard);
     }
-
 
     public void deleteBoard(Long id) {
         Board board = boardRepository.findById(id)
                 .orElseThrow(() ->
-                        new ResponseStatusException(HttpStatus.NOT_FOUND, "ID에 해당하는 게시판이 존재하지 않습니다.")
-                );
+                        new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                "ID에 해당하는 게시판이 존재하지 않습니다."));
 
         boardRepository.deleteById(id);
     }
