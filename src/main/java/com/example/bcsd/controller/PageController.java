@@ -13,5 +13,6 @@ public class PageController {
         return "introduction";
     }
 
+    @GetMapping("/posts")
 
 }

@@ -2,7 +2,6 @@ package com.example.bcsd.controller;
 
 import com.example.bcsd.controller.dto.request.MemberCreateRequest;
 import com.example.bcsd.controller.dto.request.MemberUpdateRequest;
-import com.example.bcsd.controller.dto.response.BoardResponse;
 import com.example.bcsd.controller.dto.response.MemberResponse;
 import com.example.bcsd.service.MemberService;
 import org.springframework.http.ResponseEntity;

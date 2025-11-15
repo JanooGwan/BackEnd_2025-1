@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 public class Article {
 
     private Long id;
+    private Long writerId;
+    private Long boardId;
     private String title;
     private String content;
     private final LocalDateTime createdDate;
@@ -12,6 +14,15 @@ public class Article {
 
 
     public Article(String title, String content) {
+        this.title = title;
+        this.content = content;
+        this.createdDate = LocalDateTime.now();
+        this.modifiedDate = null;
+    }
+
+    public Article(Long writerId, Long boardId, String title, String content) {
+        this.writerId = writerId;
+        this.boardId = boardId;
         this.title = title;
         this.content = content;
         this.createdDate = LocalDateTime.now();
@@ -26,6 +37,14 @@ public class Article {
 
     public Long getId() {
         return id;
+    }
+
+    public Long getWriterId() {
+        return writerId;
+    }
+
+    public Long getBoardId() {
+        return boardId;
     }
 
     public String getTitle() {
