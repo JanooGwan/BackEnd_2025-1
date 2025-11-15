@@ -3,7 +3,7 @@ package com.example.bcsd.repository;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.example.bcsd.domain.Article;
+import com.example.bcsd.model.Article;
 
 public class ArticleRepository {
 

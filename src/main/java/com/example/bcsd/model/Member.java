@@ -1,4 +1,4 @@
-package com.example.bcsd.domain;
+package com.example.bcsd.model;
 
 public class Member {
 
@@ -7,8 +7,7 @@ public class Member {
     private String email;
     private String password;
 
-    public Member(Long id, String name, String email, String password) {
-        this.id = id;
+    public Member(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;

@@ -1,6 +1,6 @@
 package com.example.bcsd.controller;
 
-import com.example.bcsd.controller.dto.AgeAndNameDto;
+import com.example.bcsd.controller.dto.AgeAndName;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class JsonController {
 
     @GetMapping("/json")
-    public AgeAndNameDto ageAndName() {
-        return new AgeAndNameDto(24, "이관우");
+    public AgeAndName ageAndName() {
+        return new AgeAndName(24, "이관우");
     }
 }

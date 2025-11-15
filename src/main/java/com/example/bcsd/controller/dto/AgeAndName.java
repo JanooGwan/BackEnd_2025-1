@@ -1,6 +1,6 @@
 package com.example.bcsd.controller.dto;
 
-public record AgeAndNameDto(
+public record AgeAndName(
         int age,
         String name
 ) {}

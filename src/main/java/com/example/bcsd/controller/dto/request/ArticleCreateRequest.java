@@ -1,8 +1,8 @@
-package com.example.bcsd.controller.dto;
+package com.example.bcsd.controller.dto.request;
 
-import com.example.bcsd.domain.Article;
+import com.example.bcsd.model.Article;
 
-public record ArticleCreateRequestDto(
+public record ArticleCreateRequest(
         String title,
         String content
 ) {

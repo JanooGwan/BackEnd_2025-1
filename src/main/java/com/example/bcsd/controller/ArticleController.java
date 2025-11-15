@@ -1,8 +1,8 @@
 package com.example.bcsd.controller;
 
-import com.example.bcsd.controller.dto.ArticleCreateRequestDto;
-import com.example.bcsd.controller.dto.ArticleResponseDto;
-import com.example.bcsd.controller.dto.ArticleUpdateRequestDto;
+import com.example.bcsd.controller.dto.request.ArticleCreateRequest;
+import com.example.bcsd.controller.dto.response.ArticleResponse;
+import com.example.bcsd.controller.dto.request.ArticleUpdateRequest;
 import com.example.bcsd.service.ArticleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,20 +14,20 @@ public class ArticleController {
     private final ArticleService articleService = new ArticleService();
 
     @GetMapping("/{id}")
-    public ResponseEntity<ArticleResponseDto> getArticle(@PathVariable("id") Long id) {
-        ArticleResponseDto response = articleService.getArticleById(id);
+    public ResponseEntity<ArticleResponse> getArticle(@PathVariable("id") Long id) {
+        ArticleResponse response = articleService.getArticleById(id);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping
-    public ResponseEntity<ArticleResponseDto> createArticle(@RequestBody ArticleCreateRequestDto articleCreateRequestDto) {
-        ArticleResponseDto response = articleService.createArticle(articleCreateRequestDto);
+    public ResponseEntity<ArticleResponse> createArticle(@RequestBody ArticleCreateRequest articleCreateRequestDto) {
+        ArticleResponse response = articleService.createArticle(articleCreateRequestDto);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ArticleResponseDto> updateArticle(@PathVariable Long id, @RequestBody ArticleUpdateRequestDto articleUpdateRequestDto) {
-        ArticleResponseDto response = articleService.updateArticle(id, articleUpdateRequestDto);
+    public ResponseEntity<ArticleResponse> updateArticle(@PathVariable Long id, @RequestBody ArticleUpdateRequest articleUpdateRequestDto) {
+        ArticleResponse response = articleService.updateArticle(id, articleUpdateRequestDto);
         return ResponseEntity.ok(response);
     }
 

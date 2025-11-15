@@ -1,10 +1,8 @@
-package com.example.bcsd.domain;
+package com.example.bcsd.model;
 
 import java.time.LocalDateTime;
 
 public class Article {
-
-    public static Long articleCount = 0L;
 
     private Long id;
     private String title;
@@ -14,7 +12,6 @@ public class Article {
 
 
     public Article(String title, String content) {
-        this.id = ++articleCount;
         this.title = title;
         this.content = content;
         this.createdDate = LocalDateTime.now();
