@@ -1,7 +1,5 @@
 package com.example.bcsd.controller.dto.response;
 
-import com.example.bcsd.model.Article;
-
 import java.util.List;
 
 public record ArticlesInBoardViewResponse (
