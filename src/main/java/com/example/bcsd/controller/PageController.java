@@ -8,6 +8,7 @@ import com.example.bcsd.service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -17,12 +18,10 @@ public class PageController {
 
     private final ArticleService articleService;
     private final BoardService boardService;
-    private final MemberService memberService;
 
-    public PageController(ArticleService articleService, BoardService boardService, MemberService memberService) {
+    public PageController(ArticleService articleService, BoardService boardService) {
         this.articleService = articleService;
         this.boardService = boardService;
-        this.memberService = memberService;
     }
 
     @GetMapping("/introduce")
@@ -32,14 +31,19 @@ public class PageController {
     }
 
     @GetMapping("/posts")
-    public String posts(@RequestParam(name = "boardId", required = false, defaultValue = "1") Long boardId,
-                        Model model) {
+    public String posts(Model model) {
 
-        BoardResponse board = boardService.getBoardById(boardId);
-        model.addAttribute("boardName", board.name());
+        model.addAttribute("boards", boardService.getBoardsWithArticles());
 
-        List<ArticleResponse> articles = articleService.getArticlesByBoard(boardId);
-        model.addAttribute("articles", articles);
+        return "posts";
+    }
+
+
+    @GetMapping("/posts/{boardId}")
+    public String posts(@PathVariable Long boardId, Model model) {
+
+        model.addAttribute("boardName", boardService.getBoardById(boardId).name());
+        model.addAttribute("articles", articleService.getArticlesByBoardWithWriter(boardId));
 
         return "posts";
     }
