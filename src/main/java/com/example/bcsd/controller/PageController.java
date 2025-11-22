@@ -30,15 +30,15 @@ public class PageController {
     }
 
     @GetMapping("/posts")
-    public String posts(Model model) {
-        model.addAttribute("boards", articleService.getBoardsWithArticles());
-        return "posts";
-    }
+    public String posts(@RequestParam(required = false) Long boardId, Model model) {
+        if (boardId == null) {
+            model.addAttribute("boards", articleService.getBoardsWithArticles());
+            return "posts";
+        }
 
-    @GetMapping("/posts/{boardId}")
-    public String postsByBoard(@PathVariable Long boardId, Model model) {
         model.addAttribute("boardName", boardService.getBoardById(boardId).name());
         model.addAttribute("articles", articleService.getArticlesByBoardWithWriter(boardId));
         return "posts";
     }
+
 }
