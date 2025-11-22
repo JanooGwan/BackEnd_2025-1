@@ -20,6 +20,7 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
+    @Transactional(readOnly = true)
     public List<MemberResponse> getAllMembers() {
         return memberRepository.findAll()
                 .stream()
@@ -27,6 +28,7 @@ public class MemberService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     public MemberResponse getMemberById(Long id) {
         return memberRepository.findById(id)
                 .map(MemberResponse::from)

@@ -22,6 +22,7 @@ public class BoardService {
         this.boardRepository = boardRepository;
     }
 
+    @Transactional(readOnly = true)
     public List<BoardResponse> getAllBoards() {
         return boardRepository.findAll()
                 .stream()
@@ -29,6 +30,7 @@ public class BoardService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     public BoardResponse getBoardById(Long id) {
         return boardRepository.findById(id)
                 .map(BoardResponse::from)

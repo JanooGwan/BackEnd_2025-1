@@ -33,6 +33,7 @@ public class ArticleService {
         this.boardRepository = boardRepository;
     }
 
+    @Transactional(readOnly = true)
     public List<ArticleResponse> getAllArticles() {
         return articleRepository.findAll()
                 .stream()
@@ -40,6 +41,7 @@ public class ArticleService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     public ArticleResponse getArticleById(Long id) {
         return articleRepository.findById(id)
                 .map(ArticleResponse::from)
@@ -48,12 +50,14 @@ public class ArticleService {
                                 "ID에 해당하는 게시글이 존재하지 않습니다."));
     }
 
+    @Transactional(readOnly = true)
     public List<ArticleResponse> getArticlesByBoardId(Long boardId) {
         return articleRepository.findAllByBoardId(boardId).stream()
                 .map(ArticleResponse::from)
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     public List<ArticleViewResponse> getArticlesByBoardWithWriter(Long boardId) {
         return articleRepository.findAllByBoardId(boardId).stream()
                 .map(article -> {
@@ -68,6 +72,7 @@ public class ArticleService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     public List<ArticlesInBoardViewResponse> getBoardsWithArticles() {
 
         List<Board> boards = boardRepository.findAll();
