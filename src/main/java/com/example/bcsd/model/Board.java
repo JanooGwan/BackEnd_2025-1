@@ -1,5 +1,10 @@
 package com.example.bcsd.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+
+@Builder
+@AllArgsConstructor
 public class Board {
     private Long id;
     private String name;

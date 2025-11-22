@@ -1,7 +1,12 @@
 package com.example.bcsd.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+
 import java.time.LocalDateTime;
 
+@Builder
+@AllArgsConstructor
 public class Article {
 
     private Long id;
