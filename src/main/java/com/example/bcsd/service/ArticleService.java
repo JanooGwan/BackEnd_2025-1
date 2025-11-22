@@ -13,6 +13,7 @@ import com.example.bcsd.repository.BoardRepository;
 import com.example.bcsd.repository.MemberRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -79,11 +80,13 @@ public class ArticleService {
                 .toList();
     }
 
+    @Transactional
     public ArticleResponse createArticle(ArticleCreateRequest requestDto) {
         Article article = articleRepository.save(requestDto.toEntity());
         return ArticleResponse.from(article);
     }
 
+    @Transactional
     public ArticleResponse updateArticle(Long id, ArticleUpdateRequest requestDto) {
         Article article = articleRepository.findById(id)
                 .orElseThrow(() ->
@@ -94,6 +97,7 @@ public class ArticleService {
         return ArticleResponse.from(articleRepository.update(id, article));
     }
 
+    @Transactional
     public void deleteArticle(Long id) {
         Article article = articleRepository.findById(id)
                 .orElseThrow(() ->

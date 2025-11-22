@@ -7,6 +7,7 @@ import com.example.bcsd.model.Member;
 import com.example.bcsd.repository.MemberRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -32,11 +33,13 @@ public class MemberService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "ID에 해당하는 회원이 존재하지 않습니다."));
     }
 
+    @Transactional
     public MemberResponse createMember(MemberCreateRequest requestDto) {
         Member member = memberRepository.save(requestDto.toEntity());
         return MemberResponse.from(member);
     }
 
+    @Transactional
     public MemberResponse updateMember(Long id, MemberUpdateRequest requestDto) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() ->
@@ -49,7 +52,7 @@ public class MemberService {
         return MemberResponse.from(updatedMember);
     }
 
-
+    @Transactional
     public void deleteMember(Long id) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() ->

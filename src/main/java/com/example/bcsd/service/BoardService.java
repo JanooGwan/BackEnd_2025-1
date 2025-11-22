@@ -7,6 +7,8 @@ import com.example.bcsd.model.Board;
 import com.example.bcsd.repository.BoardRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -35,11 +37,13 @@ public class BoardService {
                                 "ID에 해당하는 게시판이 존재하지 않습니다."));
     }
 
+    @Transactional
     public BoardResponse createBoard(BoardCreateRequest requestDto) {
         Board board = boardRepository.save(requestDto.toEntity());
         return BoardResponse.from(board);
     }
 
+    @Transactional
     public BoardResponse updateBoard(Long id, BoardUpdateRequest requestDto) {
         Board board = boardRepository.findById(id)
                 .orElseThrow(() ->
@@ -51,6 +55,7 @@ public class BoardService {
         return BoardResponse.from(updatedBoard);
     }
 
+    @Transactional
     public void deleteBoard(Long id) {
         Board board = boardRepository.findById(id)
                 .orElseThrow(() ->

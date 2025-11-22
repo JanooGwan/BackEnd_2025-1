@@ -1,3 +1,4 @@
+/*
 package com.example.bcsd.global;
 
 import com.example.bcsd.model.Article;
@@ -43,3 +44,4 @@ public class DataInitializer implements CommandLineRunner {
         articleRepository.save(new Article(member3.getId(), board2.getId(), "[생활관]동계방학 기숙사 사전조사 안내", "아우미르 사이트 참고 바랍니다"));
     }
 }
+*/
