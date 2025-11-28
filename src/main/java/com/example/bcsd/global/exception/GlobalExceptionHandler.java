@@ -8,31 +8,44 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
     @ExceptionHandler(CustomException.class)
-    public ResponseEntity<String> handleException(CustomException ex, HttpServletRequest request) {
+    public ResponseEntity<CustomExceptionResponse> handleException(
+            CustomException ex,
+            HttpServletRequest request
+    ) {
         request.setAttribute("exceptionMessage", ex.getMessage());
 
-        return ResponseEntity.status(
-                        ex.getErrorCode()
-                                .getStatus()
-                )
-                .body(ex.getMessage());
+        CustomExceptionResponse response = CustomExceptionResponse.from(ex.getErrorCode());
+
+        return ResponseEntity
+                .status(response.status())
+                .body(response);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<List<String>> handleException(MethodArgumentNotValidException ex, HttpServletRequest request) {
+    public ResponseEntity<CustomExceptionResponse> handleException(
+            MethodArgumentNotValidException ex,
+            HttpServletRequest request
+    ) {
         request.setAttribute("exceptionMessage", ex.getMessage());
 
         List<String> errorMessages = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                .collect(Collectors.toList());
+                .toList();
 
-        return ResponseEntity.badRequest().body(errorMessages);
+        CustomExceptionResponse response = new CustomExceptionResponse(
+                400,
+                String.join(", ", errorMessages)
+        );
+
+        return ResponseEntity
+                .badRequest()
+                .body(response);
     }
 }
