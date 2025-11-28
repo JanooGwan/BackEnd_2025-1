@@ -8,13 +8,13 @@ import com.example.bcsd.model.Member;
 import com.example.bcsd.controller.dto.request.ArticleCreateRequest;
 import com.example.bcsd.controller.dto.response.ArticleResponse;
 import com.example.bcsd.controller.dto.request.ArticleUpdateRequest;
+import com.example.bcsd.global.exception.CustomException;
+import com.example.bcsd.global.exception.ErrorCode;
 import com.example.bcsd.repository.ArticleRepository;
 import com.example.bcsd.repository.BoardRepository;
 import com.example.bcsd.repository.MemberRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -45,27 +45,25 @@ public class ArticleService {
     public ArticleResponse getArticleById(Long id) {
         return articleRepository.findById(id)
                 .map(ArticleResponse::from)
-                .orElseThrow(() ->
-                        new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                "ID에 해당하는 게시글이 존재하지 않습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.ARTICLE_NOT_FOUND));
     }
 
     @Transactional(readOnly = true)
     public List<ArticleResponse> getArticlesByBoardId(Long boardId) {
-        return articleRepository.findAllByBoardId(boardId).stream()
+        return articleRepository.findAllByBoardId(boardId)
+                .stream()
                 .map(ArticleResponse::from)
                 .toList();
     }
 
     @Transactional(readOnly = true)
     public List<ArticleViewResponse> getArticlesByBoardWithWriter(Long boardId) {
-        return articleRepository.findAllByBoardId(boardId).stream()
+        return articleRepository.findAllByBoardId(boardId)
+                .stream()
                 .map(article -> {
                     String writerName = memberRepository.findById(article.getWriterId())
                             .map(Member::getName)
-                            .orElseThrow(() ->
-                                    new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                            "게시글 작성자 정보가 존재하지 않습니다."));
+                            .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
                     return ArticleViewResponse.of(article, writerName);
                 })
@@ -74,7 +72,6 @@ public class ArticleService {
 
     @Transactional(readOnly = true)
     public List<ArticlesInBoardViewResponse> getBoardsWithArticles() {
-
         List<Board> boards = boardRepository.findAll();
 
         return boards.stream()
@@ -94,9 +91,7 @@ public class ArticleService {
     @Transactional
     public ArticleResponse updateArticle(Long id, ArticleUpdateRequest requestDto) {
         Article article = articleRepository.findById(id)
-                .orElseThrow(() ->
-                        new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                "ID에 해당하는 게시글이 존재하지 않습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.ARTICLE_NOT_FOUND));
 
         article.update(requestDto.title(), requestDto.content());
         return ArticleResponse.from(articleRepository.update(id, article));
@@ -105,9 +100,7 @@ public class ArticleService {
     @Transactional
     public void deleteArticle(Long id) {
         Article article = articleRepository.findById(id)
-                .orElseThrow(() ->
-                        new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                "ID에 해당하는 게시글이 존재하지 않습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.ARTICLE_NOT_FOUND));
 
         articleRepository.deleteById(id);
     }

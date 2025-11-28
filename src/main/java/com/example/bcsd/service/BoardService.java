@@ -3,13 +3,12 @@ package com.example.bcsd.service;
 import com.example.bcsd.controller.dto.request.BoardCreateRequest;
 import com.example.bcsd.controller.dto.request.BoardUpdateRequest;
 import com.example.bcsd.controller.dto.response.BoardResponse;
+import com.example.bcsd.global.exception.CustomException;
+import com.example.bcsd.global.exception.ErrorCode;
 import com.example.bcsd.model.Board;
 import com.example.bcsd.repository.BoardRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -34,9 +33,7 @@ public class BoardService {
     public BoardResponse getBoardById(Long id) {
         return boardRepository.findById(id)
                 .map(BoardResponse::from)
-                .orElseThrow(() ->
-                        new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                "ID에 해당하는 게시판이 존재하지 않습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.BOARD_NOT_FOUND));
     }
 
     @Transactional
@@ -48,9 +45,7 @@ public class BoardService {
     @Transactional
     public BoardResponse updateBoard(Long id, BoardUpdateRequest requestDto) {
         Board board = boardRepository.findById(id)
-                .orElseThrow(() ->
-                        new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                "ID에 해당하는 게시판이 존재하지 않습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.BOARD_NOT_FOUND));
 
         board.update(requestDto.name());
         Board updatedBoard = boardRepository.update(id, board);
@@ -60,9 +55,7 @@ public class BoardService {
     @Transactional
     public void deleteBoard(Long id) {
         Board board = boardRepository.findById(id)
-                .orElseThrow(() ->
-                        new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                "ID에 해당하는 게시판이 존재하지 않습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.BOARD_NOT_FOUND));
 
         boardRepository.deleteById(id);
     }
