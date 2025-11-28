@@ -70,5 +70,4 @@ public class MemberRepository {
         String sql = "SELECT COUNT(*) FROM article WHERE writer_id = ?";
         return jdbcTemplate.queryForObject(sql, Integer.class, memberId);
     }
-
 }

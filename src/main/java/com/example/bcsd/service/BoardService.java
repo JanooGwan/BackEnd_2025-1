@@ -54,9 +54,16 @@ public class BoardService {
 
     @Transactional
     public void deleteBoard(Long id) {
+
         Board board = boardRepository.findById(id)
                 .orElseThrow(() -> new CustomException(ErrorCode.BOARD_NOT_FOUND));
 
+        int articleCount = boardRepository.countArticlesByBoard(id);
+        if (articleCount > 0) {
+            throw new CustomException(ErrorCode.CANNOT_DELETE_BOARD_WITH_ARTICLES);
+        }
+
         boardRepository.deleteById(id);
     }
+
 }

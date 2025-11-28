@@ -54,4 +54,9 @@ public class BoardRepository {
         String sql = "DELETE FROM board WHERE id = ?";
         jdbcTemplate.update(sql, id);
     }
+
+    public int countArticlesByBoard(Long boardId) {
+        String sql = "SELECT COUNT(*) FROM article WHERE board_id = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class, boardId);
+    }
 }
