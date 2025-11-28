@@ -4,6 +4,7 @@ import com.example.bcsd.controller.dto.request.ArticleCreateRequest;
 import com.example.bcsd.controller.dto.response.ArticleResponse;
 import com.example.bcsd.controller.dto.request.ArticleUpdateRequest;
 import com.example.bcsd.service.ArticleService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,13 +32,13 @@ public class ArticleController {
     }
 
     @PostMapping
-    public ResponseEntity<ArticleResponse> createArticle(@RequestBody ArticleCreateRequest articleCreateRequestDto) {
+    public ResponseEntity<ArticleResponse> createArticle(@Valid @RequestBody ArticleCreateRequest articleCreateRequestDto) {
         ArticleResponse response = articleService.createArticle(articleCreateRequestDto);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ArticleResponse> updateArticle(@PathVariable Long id, @RequestBody ArticleUpdateRequest articleUpdateRequestDto) {
+    public ResponseEntity<ArticleResponse> updateArticle(@PathVariable Long id, @Valid @RequestBody ArticleUpdateRequest articleUpdateRequestDto) {
         ArticleResponse response = articleService.updateArticle(id, articleUpdateRequestDto);
         return ResponseEntity.ok(response);
     }

@@ -5,6 +5,7 @@ import com.example.bcsd.controller.dto.request.BoardUpdateRequest;
 import com.example.bcsd.controller.dto.response.ArticleResponse;
 import com.example.bcsd.controller.dto.response.BoardResponse;
 import com.example.bcsd.service.BoardService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,13 +33,13 @@ public class BoardController {
     }
 
     @PostMapping
-    public ResponseEntity<BoardResponse> createBoard(@RequestBody BoardCreateRequest boardCreateRequestDto) {
+    public ResponseEntity<BoardResponse> createBoard(@Valid @RequestBody BoardCreateRequest boardCreateRequestDto) {
         BoardResponse response = boardService.createBoard(boardCreateRequestDto);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BoardResponse> updateBoard(@PathVariable Long id, @RequestBody BoardUpdateRequest boardUpdateRequestDto) {
+    public ResponseEntity<BoardResponse> updateBoard(@PathVariable Long id, @Valid @RequestBody BoardUpdateRequest boardUpdateRequestDto) {
         BoardResponse response = boardService.updateBoard(id, boardUpdateRequestDto);
         return ResponseEntity.ok(response);
     }

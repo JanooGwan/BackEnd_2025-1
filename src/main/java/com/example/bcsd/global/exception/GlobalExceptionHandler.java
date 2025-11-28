@@ -33,19 +33,11 @@ public class GlobalExceptionHandler {
     ) {
         request.setAttribute("exceptionMessage", ex.getMessage());
 
-        List<String> errorMessages = ex.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                .toList();
-
-        CustomExceptionResponse response = new CustomExceptionResponse(
-                400,
-                String.join(", ", errorMessages)
-        );
+        ErrorCode code = ErrorCode.NULL_VALUE_NOT_ALLOWED;
 
         return ResponseEntity
-                .badRequest()
-                .body(response);
+                .status(code.getStatus())
+                .body(CustomExceptionResponse.from(code));
     }
+
 }
