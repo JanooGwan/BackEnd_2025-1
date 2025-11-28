@@ -55,9 +55,16 @@ public class MemberService {
 
     @Transactional
     public void deleteMember(Long id) {
+
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
+        int articleCount = memberRepository.countArticlesByMember(id);
+        if (articleCount > 0) {
+            throw new CustomException(ErrorCode.CANNOT_DELETE_MEMBER_WITH_ARTICLES);
+        }
+
         memberRepository.deleteById(id);
     }
+
 }
