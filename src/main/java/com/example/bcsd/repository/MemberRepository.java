@@ -70,4 +70,11 @@ public class MemberRepository {
         String sql = "SELECT COUNT(*) FROM article WHERE writer_id = ?";
         return jdbcTemplate.queryForObject(sql, Integer.class, memberId);
     }
+
+    public boolean existsByEmail(String email) {
+        String sql = "SELECT COUNT(*) FROM member WHERE email = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, email);
+        return count != null && count > 0;
+    }
+
 }

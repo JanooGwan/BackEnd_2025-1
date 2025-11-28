@@ -44,14 +44,26 @@ public class MemberService {
 
     @Transactional
     public MemberResponse updateMember(Long id, MemberUpdateRequest requestDto) {
+
+        // 1. 회원 존재 여부 확인
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
+
+        if (!member.getEmail().equals(requestDto.email())) {
+
+            boolean emailExists = memberRepository.existsByEmail(requestDto.email());
+
+            if (emailExists) {
+                throw new CustomException(ErrorCode.EMAIL_ALREADY_EXISTS);
+            }
+        }
 
         member.update(requestDto.name(), requestDto.email(), requestDto.password());
         Member updatedMember = memberRepository.update(id, member);
 
         return MemberResponse.from(updatedMember);
     }
+
 
     @Transactional
     public void deleteMember(Long id) {
