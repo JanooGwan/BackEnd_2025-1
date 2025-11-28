@@ -65,4 +65,10 @@ public class MemberRepository {
         String sql = "DELETE FROM member WHERE id = ?";
         jdbcTemplate.update(sql, id);
     }
+
+    public int countArticlesByMember(Long memberId) {
+        String sql = "SELECT COUNT(*) FROM article WHERE writer_id = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class, memberId);
+    }
+
 }
