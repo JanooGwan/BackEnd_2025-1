@@ -1,6 +1,6 @@
 package com.example.bcsd.controller.dto.response;
 
-import com.example.bcsd.entity.beforejpa.Article;
+import com.example.bcsd.entity.Article;
 
 import java.time.LocalDateTime;
 

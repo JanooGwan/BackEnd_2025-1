@@ -6,7 +6,7 @@ import com.example.bcsd.controller.dto.response.MemberResponse;
 import com.example.bcsd.global.exception.CustomException;
 import com.example.bcsd.global.exception.ErrorCode;
 import com.example.bcsd.entity.beforejpa.Member;
-import com.example.bcsd.repository.MemberRepositoryJdbc;
+import com.example.bcsd.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,9 +15,9 @@ import java.util.List;
 @Service
 public class MemberService {
 
-    private final MemberRepositoryJdbc memberRepository;
+    private final MemberRepository memberRepository;
 
-    public MemberService(MemberRepositoryJdbc memberRepository) {
+    public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
 
@@ -45,7 +45,6 @@ public class MemberService {
     @Transactional
     public MemberResponse updateMember(Long id, MemberUpdateRequest requestDto) {
 
-        // 1. 회원 존재 여부 확인
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 

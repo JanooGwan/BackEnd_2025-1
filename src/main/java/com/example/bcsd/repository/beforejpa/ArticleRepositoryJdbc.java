@@ -1,3 +1,4 @@
+/*
 package com.example.bcsd.repository;
 
 import com.example.bcsd.entity.beforejpa.Article;
@@ -82,3 +83,4 @@ public class ArticleRepositoryJdbc {
         jdbcTemplate.update(sql, id);
     }
 }
+*/

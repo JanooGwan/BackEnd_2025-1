@@ -1,3 +1,4 @@
+/*
 package com.example.bcsd.entity.beforejpa;
 
 import lombok.AllArgsConstructor;
@@ -44,3 +45,4 @@ public class Member {
         this.password = password;
     }
 }
+*/

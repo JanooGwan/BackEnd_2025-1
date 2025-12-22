@@ -35,6 +35,13 @@ public class Article {
     @Column(name = "modified_at")
     private LocalDateTime modifiedAt;
 
+    public Article(Long writerId, Long boardId, String title, String content) {
+        this.writerId = writerId;
+        this.boardId = boardId;
+        this.title = title;
+        this.content = content;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }

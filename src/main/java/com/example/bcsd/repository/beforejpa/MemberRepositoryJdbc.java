@@ -1,3 +1,4 @@
+/*
 package com.example.bcsd.repository;
 
 import com.example.bcsd.entity.beforejpa.Member;
@@ -78,3 +79,4 @@ public class MemberRepositoryJdbc {
     }
 
 }
+*/

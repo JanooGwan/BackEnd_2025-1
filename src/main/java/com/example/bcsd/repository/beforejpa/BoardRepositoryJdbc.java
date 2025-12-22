@@ -1,3 +1,4 @@
+/*
 package com.example.bcsd.repository;
 
 import com.example.bcsd.entity.beforejpa.Board;
@@ -60,3 +61,4 @@ public class BoardRepositoryJdbc {
         return jdbcTemplate.queryForObject(sql, Integer.class, boardId);
     }
 }
+*/

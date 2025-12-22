@@ -1,3 +1,4 @@
+/*
 package com.example.bcsd.entity.beforejpa;
 
 import lombok.AllArgsConstructor;
@@ -72,3 +73,4 @@ public class Article {
         this.id = id;
     }
 }
+*/
