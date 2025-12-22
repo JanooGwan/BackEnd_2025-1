@@ -1,4 +1,4 @@
-package com.example.bcsd.domain;
+package com.example.bcsd.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

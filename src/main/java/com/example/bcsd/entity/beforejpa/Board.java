@@ -1,4 +1,4 @@
-package com.example.bcsd.domain.beforejpa;
+package com.example.bcsd.entity.beforejpa;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

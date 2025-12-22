@@ -1,6 +1,6 @@
 package com.example.bcsd.controller.dto.response;
 
-import com.example.bcsd.domain.beforejpa.Board;
+import com.example.bcsd.entity.beforejpa.Board;
 
 public record BoardResponse(
         Long id,

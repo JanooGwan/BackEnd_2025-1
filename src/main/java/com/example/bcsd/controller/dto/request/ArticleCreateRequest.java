@@ -1,6 +1,6 @@
 package com.example.bcsd.controller.dto.request;
 
-import com.example.bcsd.domain.beforejpa.Article;
+import com.example.bcsd.entity.beforejpa.Article;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 

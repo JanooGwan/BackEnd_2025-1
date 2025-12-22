@@ -1,6 +1,6 @@
 package com.example.bcsd.controller.dto.request;
 
-import com.example.bcsd.domain.beforejpa.Member;
+import com.example.bcsd.entity.beforejpa.Member;
 import jakarta.validation.constraints.NotBlank;
 
 public record MemberCreateRequest (

@@ -2,9 +2,9 @@ package com.example.bcsd.service;
 
 import com.example.bcsd.controller.dto.response.ArticleViewResponse;
 import com.example.bcsd.controller.dto.response.ArticlesInBoardViewResponse;
-import com.example.bcsd.domain.beforejpa.Article;
-import com.example.bcsd.domain.beforejpa.Board;
-import com.example.bcsd.domain.beforejpa.Member;
+import com.example.bcsd.entity.beforejpa.Article;
+import com.example.bcsd.entity.beforejpa.Board;
+import com.example.bcsd.entity.beforejpa.Member;
 import com.example.bcsd.controller.dto.request.ArticleCreateRequest;
 import com.example.bcsd.controller.dto.response.ArticleResponse;
 import com.example.bcsd.controller.dto.request.ArticleUpdateRequest;

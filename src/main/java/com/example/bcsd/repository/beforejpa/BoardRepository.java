@@ -1,6 +1,6 @@
 package com.example.bcsd.repository;
 
-import com.example.bcsd.domain.beforejpa.Board;
+import com.example.bcsd.entity.beforejpa.Board;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
