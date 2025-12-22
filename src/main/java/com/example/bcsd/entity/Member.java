@@ -28,6 +28,12 @@ public class Member {
         this.id = id;
     }
 
+    public Member(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
     public void update(String name, String email, String password) {
         this.name = name;
         this.email = email;
