@@ -5,7 +5,7 @@ import com.example.bcsd.controller.dto.request.MemberUpdateRequest;
 import com.example.bcsd.controller.dto.response.MemberResponse;
 import com.example.bcsd.global.exception.CustomException;
 import com.example.bcsd.global.exception.ErrorCode;
-import com.example.bcsd.model.Member;
+import com.example.bcsd.domain.beforejpa.Member;
 import com.example.bcsd.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

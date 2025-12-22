@@ -1,6 +1,6 @@
 package com.example.bcsd.controller.dto.request;
 
-import com.example.bcsd.model.Board;
+import com.example.bcsd.domain.beforejpa.Board;
 import jakarta.validation.constraints.NotBlank;
 
 public record BoardCreateRequest(
