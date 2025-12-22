@@ -49,25 +49,21 @@ public class MemberService {
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
         if (!member.getEmail().equals(requestDto.email())) {
-
             boolean emailExists = memberRepository.existsByEmail(requestDto.email());
-
             if (emailExists) {
                 throw new CustomException(ErrorCode.EMAIL_ALREADY_EXISTS);
             }
         }
 
         member.update(requestDto.name(), requestDto.email(), requestDto.password());
-        Member updatedMember = memberRepository.update(id, member);
 
-        return MemberResponse.from(updatedMember);
+        return MemberResponse.from(member);
     }
-
 
     @Transactional
     public void deleteMember(Long id) {
 
-        Member member = memberRepository.findById(id)
+        memberRepository.findById(id)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
         int articleCount = memberRepository.countArticlesByMember(id);
@@ -77,5 +73,4 @@ public class MemberService {
 
         memberRepository.deleteById(id);
     }
-
 }

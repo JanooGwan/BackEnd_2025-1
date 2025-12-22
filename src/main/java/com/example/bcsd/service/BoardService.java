@@ -48,14 +48,14 @@ public class BoardService {
                 .orElseThrow(() -> new CustomException(ErrorCode.BOARD_NOT_FOUND));
 
         board.update(requestDto.name());
-        Board updatedBoard = boardRepository.update(id, board);
-        return BoardResponse.from(updatedBoard);
+
+        return BoardResponse.from(board);
     }
 
     @Transactional
     public void deleteBoard(Long id) {
 
-        Board board = boardRepository.findById(id)
+        boardRepository.findById(id)
                 .orElseThrow(() -> new CustomException(ErrorCode.BOARD_NOT_FOUND));
 
         int articleCount = boardRepository.countArticlesByBoard(id);
@@ -65,5 +65,4 @@ public class BoardService {
 
         boardRepository.deleteById(id);
     }
-
 }

@@ -99,12 +99,13 @@ public class ArticleService {
                 .orElseThrow(() -> new CustomException(ErrorCode.ARTICLE_NOT_FOUND));
 
         article.update(requestDto.title(), requestDto.content());
-        return ArticleResponse.from(articleRepository.update(id, article));
+
+        return ArticleResponse.from(article);
     }
 
     @Transactional
     public void deleteArticle(Long id) {
-        Article article = articleRepository.findById(id)
+        articleRepository.findById(id)
                 .orElseThrow(() -> new CustomException(ErrorCode.ARTICLE_NOT_FOUND));
 
         articleRepository.deleteById(id);
