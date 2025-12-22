@@ -18,6 +18,14 @@ public class Board {
     @Column(name = "name")
     private String name;
 
+    public Board(String name) {
+        this.name = name;
+    }
+
+    public void update(String name) {
+        this.name = name;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
