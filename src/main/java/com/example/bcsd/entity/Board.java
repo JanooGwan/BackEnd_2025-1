@@ -25,8 +25,4 @@ public class Board {
     public void update(String name) {
         this.name = name;
     }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }

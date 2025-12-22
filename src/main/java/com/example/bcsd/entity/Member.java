@@ -24,10 +24,6 @@ public class Member {
     @Column(name = "password")
     private String password;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Member(String name, String email, String password) {
         this.name = name;
         this.email = email;
