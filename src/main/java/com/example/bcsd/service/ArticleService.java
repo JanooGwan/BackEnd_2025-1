@@ -10,10 +10,7 @@ import com.example.bcsd.controller.dto.response.ArticleResponse;
 import com.example.bcsd.controller.dto.request.ArticleUpdateRequest;
 import com.example.bcsd.global.exception.CustomException;
 import com.example.bcsd.global.exception.ErrorCode;
-import com.example.bcsd.repository.ArticleRepository;
-import com.example.bcsd.repository.ArticleRepositoryJdbc;
-import com.example.bcsd.repository.BoardRepositoryJdbc;
-import com.example.bcsd.repository.MemberRepositoryJdbc;
+import com.example.bcsd.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,9 +23,9 @@ public class ArticleService {
     private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
 
-    public ArticleService(ArticleRepositoryJdbc articleRepository,
-                          MemberRepositoryJdbc memberRepository,
-                          BoardRepositoryJdbc boardRepository) {
+    public ArticleService(ArticleRepository articleRepository,
+                          MemberRepository memberRepository,
+                          BoardRepository boardRepository) {
         this.articleRepository = articleRepository;
         this.memberRepository = memberRepository;
         this.boardRepository = boardRepository;
