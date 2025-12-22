@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class MemberRepository {
+public class MemberRepositoryJdbc {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public MemberRepository(JdbcTemplate jdbcTemplate) {
+    public MemberRepositoryJdbc(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

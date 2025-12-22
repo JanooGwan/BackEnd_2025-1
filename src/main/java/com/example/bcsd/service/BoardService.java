@@ -6,7 +6,7 @@ import com.example.bcsd.controller.dto.response.BoardResponse;
 import com.example.bcsd.global.exception.CustomException;
 import com.example.bcsd.global.exception.ErrorCode;
 import com.example.bcsd.entity.beforejpa.Board;
-import com.example.bcsd.repository.BoardRepository;
+import com.example.bcsd.repository.BoardRepositoryJdbc;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,9 +15,9 @@ import java.util.List;
 @Service
 public class BoardService {
 
-    private final BoardRepository boardRepository;
+    private final BoardRepositoryJdbc boardRepository;
 
-    public BoardService(BoardRepository boardRepository) {
+    public BoardService(BoardRepositoryJdbc boardRepository) {
         this.boardRepository = boardRepository;
     }
 

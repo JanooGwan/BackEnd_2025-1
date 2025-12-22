@@ -6,7 +6,7 @@ import com.example.bcsd.controller.dto.response.MemberResponse;
 import com.example.bcsd.global.exception.CustomException;
 import com.example.bcsd.global.exception.ErrorCode;
 import com.example.bcsd.entity.beforejpa.Member;
-import com.example.bcsd.repository.MemberRepository;
+import com.example.bcsd.repository.MemberRepositoryJdbc;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,9 +15,9 @@ import java.util.List;
 @Service
 public class MemberService {
 
-    private final MemberRepository memberRepository;
+    private final MemberRepositoryJdbc memberRepository;
 
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(MemberRepositoryJdbc memberRepository) {
         this.memberRepository = memberRepository;
     }
 
