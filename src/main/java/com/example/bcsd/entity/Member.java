@@ -27,8 +27,8 @@ public class Member {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "Member", orphanRemoval = true, cascade = CascadeType.REMOVE)
-    @Column
+    @OneToMany(mappedBy = "writer", orphanRemoval = true, cascade = CascadeType.REMOVE)
+    @Builder.Default
     private List<Article> articles = new ArrayList<>();
 
     public void update(String name, String email, String password) {

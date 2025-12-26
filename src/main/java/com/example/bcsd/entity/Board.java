@@ -21,6 +21,7 @@ public class Board {
     private String name;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @Builder.Default
     private List<Article> articles;
 
     public Board(String name) {
