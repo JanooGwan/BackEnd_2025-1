@@ -1,3 +1,4 @@
+/*
 package com.example.bcsd.repository.beforejparelation;
 
 import com.example.bcsd.entity.Board;
@@ -13,3 +14,4 @@ public interface BoardRepository {
     void deleteById(Long id);
     int countArticlesByBoard(Long boardId);
 }
+*/

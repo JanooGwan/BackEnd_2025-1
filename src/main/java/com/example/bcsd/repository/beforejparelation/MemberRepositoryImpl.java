@@ -1,3 +1,4 @@
+/*
 package com.example.bcsd.repository.beforejparelation;
 
 import com.example.bcsd.entity.Member;
@@ -55,3 +56,4 @@ public class MemberRepositoryImpl implements MemberRepository {
         return count > 0;
     }
 }
+*/

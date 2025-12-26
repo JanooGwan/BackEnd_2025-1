@@ -1,4 +1,6 @@
+/*
 package com.example.bcsd.repository.beforejparelation;
+
 
 import com.example.bcsd.entity.Member;
 
@@ -14,3 +16,4 @@ public interface MemberRepository {
     int countArticlesByMember(Long memberId);
     boolean existsByEmail(String email);
 }
+*/

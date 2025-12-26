@@ -1,3 +1,4 @@
+/*
 package com.example.bcsd.repository.beforejparelation;
 
 import com.example.bcsd.entity.Board;
@@ -47,3 +48,4 @@ public class BoardRepositoryImpl implements BoardRepository {
         return count.intValue();
     }
 }
+*/

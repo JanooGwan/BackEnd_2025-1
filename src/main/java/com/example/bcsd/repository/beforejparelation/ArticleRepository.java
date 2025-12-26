@@ -1,3 +1,4 @@
+/*
 package com.example.bcsd.repository.beforejparelation;
 
 import com.example.bcsd.entity.Article;
@@ -13,3 +14,4 @@ public interface ArticleRepository {
     Article save(Article article);
     void deleteById(Long id);
 }
+*/
