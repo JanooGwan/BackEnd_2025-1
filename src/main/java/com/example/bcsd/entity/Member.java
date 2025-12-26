@@ -3,6 +3,9 @@ package com.example.bcsd.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "member")
 @Builder
@@ -15,20 +18,18 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true, nullable = false)
     private String name;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
-    public Member(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
+    @OneToMany(mappedBy = "Member", orphanRemoval = true, cascade = CascadeType.REMOVE)
+    @Column
+    private List<Article> articles = new ArrayList<>();
 
     public void update(String name, String email, String password) {
         this.name = name;
