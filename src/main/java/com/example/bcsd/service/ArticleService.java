@@ -59,7 +59,7 @@ public class ArticleService {
         return articleRepository.findAllByBoardId(boardId)
                 .stream()
                 .map(article -> {
-                    String writerName = memberRepository.findById(article.getWriterId())
+                    String writerName = memberRepository.findById(article.getWriter().getId())
                             .map(Member::getName)
                             .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 

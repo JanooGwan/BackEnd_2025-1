@@ -27,7 +27,7 @@ public class Member {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "writer", orphanRemoval = true, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "writer", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @Builder.Default
     private List<Article> articles = new ArrayList<>();
 
