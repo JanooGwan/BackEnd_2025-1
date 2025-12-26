@@ -3,6 +3,8 @@ package com.example.bcsd.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "board")
 @Builder
@@ -17,6 +19,9 @@ public class Board {
 
     @Column(name = "name")
     private String name;
+
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Article> articles;
 
     public Board(String name) {
         this.name = name;
