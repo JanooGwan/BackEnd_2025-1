@@ -1,6 +1,7 @@
-package com.example.bcsd.repository;
+package com.example.bcsd.repository.beforejparelation;
 
 import com.example.bcsd.entity.Article;
+import com.example.bcsd.repository.ArticleRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;

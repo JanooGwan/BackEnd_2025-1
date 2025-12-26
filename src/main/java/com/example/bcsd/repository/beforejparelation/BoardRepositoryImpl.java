@@ -1,4 +1,4 @@
-package com.example.bcsd.repository;
+package com.example.bcsd.repository.beforejparelation;
 
 import com.example.bcsd.entity.Board;
 import jakarta.persistence.EntityManager;
