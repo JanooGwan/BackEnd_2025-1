@@ -2,6 +2,8 @@ package com.example.bcsd.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 
@@ -17,11 +19,13 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "writer_id")
-    private Long writerId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "writer_id", nullable = false)
+    private Member writer;
 
-    @Column(name = "board_id")
-    private Long boardId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "board_id", nullable = false)
+    private Board board;
 
     @Column(name = "title")
     private String title;
@@ -29,15 +33,17 @@ public class Article {
     @Column(name = "content")
     private String content;
 
+    @CreatedDate
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @LastModifiedDate
     @Column(name = "modified_at")
     private LocalDateTime modifiedAt;
 
-    public Article(Long writerId, Long boardId, String title, String content) {
-        this.writerId = writerId;
-        this.boardId = boardId;
+    public Article(Member writer, Board board, String title, String content) {
+        this.writer = writer;
+        this.board = board;
         this.title = title;
         this.content = content;
     }
