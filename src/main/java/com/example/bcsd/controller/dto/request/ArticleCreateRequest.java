@@ -17,6 +17,11 @@ public record ArticleCreateRequest(
         String content
 ) {
     public Article toEntity(Member writer, Board board) {
-        return new Article(writer, board, title, content);
+        return Article.builder()
+                .writer(writer)
+                .board(board)
+                .title(title)
+                .content(content)
+                .build();
     }
 }

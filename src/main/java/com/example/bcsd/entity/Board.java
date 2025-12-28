@@ -3,6 +3,7 @@ package com.example.bcsd.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,7 +23,7 @@ public class Board {
 
     @OneToMany(mappedBy = "board", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     @Builder.Default
-    private List<Article> articles;
+    private List<Article> articles = new ArrayList<>();
 
     public Board(String name) {
         this.name = name;

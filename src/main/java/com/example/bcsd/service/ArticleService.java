@@ -83,13 +83,13 @@ public class ArticleService {
     @Transactional
     public ArticleResponse createArticle(ArticleCreateRequest requestDto) {
 
-        memberRepository.findById(requestDto.writerId())
+        Member writer = memberRepository.findById(requestDto.writerId())
                 .orElseThrow(() -> new CustomException(ErrorCode.INVALID_MEMBER_REFERENCE));
 
-        boardRepository.findById(requestDto.boardId())
+        Board board = boardRepository.findById(requestDto.boardId())
                 .orElseThrow(() -> new CustomException(ErrorCode.INVALID_BOARD_REFERENCE));
 
-        Article article = articleRepository.save(requestDto.toEntity());
+        Article article = articleRepository.save(requestDto.toEntity(writer, board));
         return ArticleResponse.from(article);
     }
 

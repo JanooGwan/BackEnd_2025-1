@@ -16,8 +16,8 @@ public record ArticleResponse(
     public static ArticleResponse from(Article article) {
         return new ArticleResponse(
                 article.getId(),
-                article.getWriterId(),
-                article.getBoardId(),
+                article.getWriter().getId(),
+                article.getBoard().getId(),
                 article.getTitle(),
                 article.getContent(),
                 article.getCreatedAt(),

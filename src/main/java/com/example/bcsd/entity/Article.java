@@ -43,13 +43,6 @@ public class Article {
     @Column(name = "modified_at")
     private LocalDateTime modifiedAt;
 
-    public Article(Member writer, Board board, String title, String content) {
-        this.writer = writer;
-        this.board = board;
-        this.title = title;
-        this.content = content;
-    }
-
     public void update(String title, String content) {
         this.title = title;
         this.content = content;
