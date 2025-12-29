@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name = "member")
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 public class Member {
 

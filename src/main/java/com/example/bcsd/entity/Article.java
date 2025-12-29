@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Table(name = "article")
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 @EntityListeners(AuditingEntityListener.class)
 public class Article {
