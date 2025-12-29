@@ -6,6 +6,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.List;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -24,17 +26,30 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<CustomExceptionResponse> handleException(
+    public ResponseEntity<ValidationErrorResponse> handleValidationException(
             MethodArgumentNotValidException ex,
             HttpServletRequest request
     ) {
         request.setAttribute("exceptionMessage", ex.getMessage());
 
-        ErrorCode code = ErrorCode.NULL_VALUE_NOT_ALLOWED;
+        List<ValidationErrorResponse.FieldError> fieldErrors = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(error -> new ValidationErrorResponse.FieldError(
+                        error.getField(),
+                        error.getDefaultMessage(),
+                        error.getRejectedValue()
+                ))
+                .toList();
+
+        ValidationErrorResponse response = ValidationErrorResponse.of(
+                400,
+                "입력값 유효성 검증에 실패했습니다.",
+                fieldErrors
+        );
 
         return ResponseEntity
-                .status(code.getStatus())
-                .body(CustomExceptionResponse.from(code));
+                .badRequest()
+                .body(response);
     }
-
 }
