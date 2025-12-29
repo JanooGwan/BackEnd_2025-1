@@ -33,7 +33,7 @@ public class ArticleService {
 
     @Transactional(readOnly = true)
     public List<ArticleResponse> getAllArticles() {
-        return articleRepository.findAll()
+        return articleRepository.findAllWithWriterAndBoard()
                 .stream()
                 .map(ArticleResponse::from)
                 .toList();
@@ -41,14 +41,14 @@ public class ArticleService {
 
     @Transactional(readOnly = true)
     public ArticleResponse getArticleById(Long id) {
-        return articleRepository.findById(id)
+        return articleRepository.findByIdWithWriterAndBoard(id)
                 .map(ArticleResponse::from)
                 .orElseThrow(() -> new CustomException(ErrorCode.ARTICLE_NOT_FOUND));
     }
 
     @Transactional(readOnly = true)
     public List<ArticleResponse> getArticlesByBoardId(Long boardId) {
-        return articleRepository.findAllByBoardId(boardId)
+        return articleRepository.findAllByBoardIdWithWriterAndBoard(boardId)
                 .stream()
                 .map(ArticleResponse::from)
                 .toList();
@@ -56,25 +56,21 @@ public class ArticleService {
 
     @Transactional(readOnly = true)
     public List<ArticleViewResponse> getArticlesByBoardWithWriter(Long boardId) {
-        return articleRepository.findAllByBoardId(boardId)
+        return articleRepository.findAllByBoardIdWithWriter(boardId)
                 .stream()
-                .map(article -> {
-                    String writerName = memberRepository.findById(article.getWriter().getId())
-                            .map(Member::getName)
-                            .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
-
-                    return ArticleViewResponse.of(article, writerName);
-                })
+                .map(article -> ArticleViewResponse.of(article, article.getWriter().getName()))
                 .toList();
     }
 
     @Transactional(readOnly = true)
     public List<ArticlesInBoardViewResponse> getBoardsWithArticles() {
-        List<Board> boards = boardRepository.findAll();
+        List<Board> boards = boardRepository.findAllWithArticlesAndWriter();
 
         return boards.stream()
                 .map(board -> {
-                    var articles = getArticlesByBoardWithWriter(board.getId());
+                    List<ArticleViewResponse> articles = board.getArticles().stream()
+                            .map(article -> ArticleViewResponse.of(article, article.getWriter().getName()))
+                            .toList();
                     return ArticlesInBoardViewResponse.of(board.getId(), board.getName(), articles);
                 })
                 .toList();
