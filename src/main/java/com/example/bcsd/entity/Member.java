@@ -18,13 +18,13 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", unique = true, nullable = false)
+    @Column(name = "name", unique = true, nullable = false, length = 20)
     private String name;
 
     @Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", nullable = false, length = 32)
     private String password;
 
     @OneToMany(mappedBy = "writer", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})

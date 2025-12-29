@@ -29,10 +29,11 @@ public class Article {
     @JoinColumn(name = "board_id", nullable = false)
     private Board board;
 
-    @Column(name = "title")
+    @Column(name = "title", length = 100)
     private String title;
 
-    @Column(name = "content")
+    @Lob
+    @Column(name = "content", length = 10000)
     private String content;
 
     @CreatedDate
