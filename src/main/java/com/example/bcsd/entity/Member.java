@@ -24,7 +24,7 @@ public class Member {
     @Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "password", nullable = false, length = 32)
+    @Column(name = "password", nullable = false, length = 64)
     private String password;
 
     @OneToMany(mappedBy = "writer", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})

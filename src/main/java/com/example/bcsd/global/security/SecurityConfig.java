@@ -40,6 +40,10 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/", "/index.html", "/login.html", "/signup.html").permitAll()
+                        .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers("/posts", "/posts/**").permitAll()
+                        .requestMatchers("/introduce", "/introduce/**").permitAll()
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/members").permitAll()
                         .requestMatchers(HttpMethod.GET, "/articles/**").permitAll()
