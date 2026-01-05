@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <title>게시글 목록</title>
 
+    <script>
+        if (!localStorage.getItem('accessToken')) {
+            window.location.href = '/login.html';
+        }
+    </script>
+
     <style>
         body {
             font-family: sans-serif;
@@ -34,6 +40,19 @@
     </style>
 </head>
 <body>
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 12px 20px; margin: -20px -20px 20px -20px; display: flex; justify-content: space-between; align-items: center;">
+    <span style="color: white; font-size: 18px; font-weight: bold;">📋 BCSD 게시판</span>
+    <button onclick="logout()" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 8px 16px; border-radius: 6px; cursor: pointer;">로그아웃</button>
+</div>
+
+<script>
+    function logout() {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        window.location.href = '/login.html';
+    }
+</script>
+
 <div th:if="${boards != null}">
     <h1>전체 게시판</h1>
 
