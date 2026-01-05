@@ -4,7 +4,6 @@ import com.example.bcsd.controller.dto.request.LoginRequest;
 import com.example.bcsd.controller.dto.request.MemberCreateRequest;
 import com.example.bcsd.controller.dto.response.MemberResponse;
 import com.example.bcsd.controller.dto.response.TokenResponse;
-import com.example.bcsd.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
